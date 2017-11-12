@@ -20,14 +20,13 @@ class BookShelf extends Component {
 
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {books.filter( (book) => book.shelf === shelfInfo.value )
-              .map((book) => (
+            {books.map((book) => (
 
-              <li key={book.id}>
-                <Book
-                  bookInfo={book}
-                />
-              </li>
+                <li key={book.id}>
+                  <Book
+                    bookInfo={book}
+                  />
+                </li>
 
             ))}
           </ol>
