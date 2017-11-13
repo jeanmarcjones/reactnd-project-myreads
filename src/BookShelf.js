@@ -34,9 +34,7 @@ class BookShelf extends Component {
                 <li key={book.id}>
                   <Book
                     bookInfo={book}
-                    onUpdateShelf={(book, shelf) => {
-                      this.handleUpdate(book, shelf)
-                    }}
+                    onUpdateShelf={this.handleUpdate}
                   />
                 </li>
 

@@ -61,7 +61,12 @@ class BooksApp extends Component {
       <div className="app">
         {this.state.showSearchPage ? (
 
-            <SearchBooks books={books} />
+            <SearchBooks
+              books={books}
+              onUpdateShelf={(book, shelf) => {
+                this.updateBook(book, shelf)
+              }}
+            />
 
         ) : (
           <div className="list-books">
