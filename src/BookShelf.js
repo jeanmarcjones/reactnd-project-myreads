@@ -6,7 +6,16 @@ class BookShelf extends Component {
 
   static propTypes = {
     books: PropTypes.array.isRequired,
-    shelfInfo: PropTypes.object.isRequired
+    shelfInfo: PropTypes.object.isRequired,
+    onUpdateShelf: PropTypes.func.isRequired
+  }
+
+  handleUpdate = (book, shelf) => {
+
+    if(this.props.onUpdateShelf) {
+      this.props.onUpdateShelf(book, shelf)
+    }
+
   }
 
   render() {
@@ -25,6 +34,9 @@ class BookShelf extends Component {
                 <li key={book.id}>
                   <Book
                     bookInfo={book}
+                    onUpdateShelf={(book, shelf) => {
+                      this.handleUpdate(book, shelf)
+                    }}
                   />
                 </li>
 

@@ -33,8 +33,22 @@ class BooksApp extends Component {
 
   componentDidMount() {
 
+    this.getBooks()
+
+  }
+
+  getBooks() {
+
     BooksAPI.getAll().then((books) => {
       this.setState({ books })
+    })
+
+  }
+
+  updateBook(book, shelf) {
+
+    BooksAPI.update(book, shelf).then(() => {
+      this.getBooks()
     })
 
   }
@@ -62,6 +76,9 @@ class BooksApp extends Component {
                   key={shelf.value}
                   books={books.filter((book) => book.shelf === shelf.value)}
                   shelfInfo={shelf}
+                  onUpdateShelf={(book, shelf) => {
+                    this.updateBook(book, shelf)
+                  }}
                 />
 
               ))}

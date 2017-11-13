@@ -4,8 +4,19 @@ import PropTypes from 'prop-types'
 class Book extends Component {
 
   static protoTypes = {
-  bookInfo: PropTypes.array.isRequired
-}
+    bookInfo: PropTypes.array.isRequired,
+    onUpdateShelf: PropTypes.func.isRequired
+  }
+
+  handleChange = (e) => {
+
+    e.preventDefault()
+
+    if(this.props.onUpdateShelf) {
+      this.props.onUpdateShelf(this.props.bookInfo, e.target.value)
+    }
+
+  }
 
   render() {
 
@@ -22,11 +33,18 @@ class Book extends Component {
           }}></div>
 
           <div className="book-shelf-changer">
-            <select value={bookInfo.shelf.readOnly}>
+            <select
+              value={bookInfo.shelf}
+              onChange={(e) => this.handleChange(e)}
+            >
               <option value="none" disabled>Move to...</option>
+
               <option value="currentlyReading">Currently Reading</option>
+
               <option value="wantToRead">Want to Read</option>
+
               <option value="read">Read</option>
+
               <option value="none">None</option>
             </select>
           </div>
