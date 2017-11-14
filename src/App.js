@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Route, Link } from 'react-router-dom'
 import SearchBooks from './SearchBooks'
 import BookShelf from './BookShelf'
 import * as BooksAPI from './BooksAPI'
@@ -27,8 +28,7 @@ class BooksApp extends Component {
         value: 'read',
         title: 'Read'
       }
-    ],
-    showSearchPage: false
+    ]
   }
 
   componentDidMount() {
@@ -58,43 +58,49 @@ class BooksApp extends Component {
     const { books, shelves } = this.state
 
     return (
-      <div className="app">
-        {this.state.showSearchPage ? (
 
+      <div className="app">
+
+        <Route exact path="/" render={() => (
+            <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>
+
+              <div className="list-books-content">
+                {shelves.map((shelf) => (
+
+                  <BookShelf
+                    key={shelf.value}
+                    books={books.filter((book) => book.shelf === shelf.value)}
+                    shelfInfo={shelf}
+                    onUpdateShelf={(book, shelf) => {
+                      this.updateBook(book, shelf)
+                    }}
+                  />
+
+                ))}
+              </div>
+
+              <div className="open-search">
+                <Link to="/search">Add a book</Link>
+              </div>
+            </div>
+          )}
+        />
+
+        <Route path="/search" render={() => (
             <SearchBooks
               books={books}
               onUpdateShelf={(book, shelf) => {
                 this.updateBook(book, shelf)
               }}
             />
+          )}
+        />
 
-        ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-
-            <div className="list-books-content">
-              {shelves.map((shelf) => (
-
-                <BookShelf
-                  key={shelf.value}
-                  books={books.filter((book) => book.shelf === shelf.value)}
-                  shelfInfo={shelf}
-                  onUpdateShelf={(book, shelf) => {
-                    this.updateBook(book, shelf)
-                  }}
-                />
-
-              ))}
-            </div>
-
-            <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div>
-          </div>
-        )}
       </div>
+
     )
   }
 
