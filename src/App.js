@@ -33,6 +33,14 @@ class BooksApp extends Component {
 
   }
 
+  searchBooks(query) {
+
+    BooksAPI.search(query).then((searchResults) => {
+      this.setState({ searchResults })
+    })
+
+  }
+
   render() {
 
     const { books, searchResults } = this.state

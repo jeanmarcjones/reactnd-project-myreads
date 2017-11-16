@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 
 class SearchBooks extends Component {
 
   static propTypes = {
-    books: PropTypes.array.isRequired,
     onUpdateShelf: PropTypes.func.isRequired
+  }
+
+  state = {
+    query: '',
+    searchResults: []
   }
 
   handleUpdate = (book, shelf) => {
@@ -18,9 +23,23 @@ class SearchBooks extends Component {
 
   }
 
+  updateQuery = (query) => {
+
+    this.setState({ query })
+
+    if(query) {
+
+      BooksAPI.search(query.trim()).then((searchResults) => {
+        this.setState({ searchResults })
+      })
+
+    }
+
+  }
+
   render() {
 
-    const { books } = this.props
+    const { query, searchResults } = this.state
 
     return (
 
@@ -37,22 +56,29 @@ class SearchBooks extends Component {
              However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
              you don't find a specific author or title. Every search is limited by search terms.
              */}
-            <input type="text" placeholder="Search by title or author"/>
+            <input
+              type="text"
+              placeholder="Search by title or author"
+              value={query}
+              onChange={(e) => this.updateQuery(e.target.value)}
+            />
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid">
-            {books.map((book) => (
+          {searchResults.length > 0 && (
+            <ol className="books-grid">
+              {searchResults.map((book) => (
 
-              <li key={book.id}>
-                <Book
-                  bookInfo={book}
-                  onUpdateShelf={this.handleUpdate}
-                />
-              </li>
+                <li key={book.id}>
+                  <Book
+                    bookInfo={book}
+                    onUpdateShelf={this.handleUpdate}
+                  />
+                </li>
 
-            ))}
-          </ol>
+              ))}
+            </ol>
+          )}
         </div>
       </div>
 
