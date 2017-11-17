@@ -27,8 +27,18 @@ class BooksApp extends Component {
 
   updateBook(book, shelf) {
 
-    BooksAPI.update(book, shelf).then(() => {
-      this.getBooks()
+    BooksAPI.update(book, shelf)
+
+    this.setState({
+      books: this.state.books.map((b) => {
+
+        if(b.id === book.id) {
+          b.shelf = shelf
+        }
+
+        return b
+
+      })
     })
 
   }
@@ -43,7 +53,7 @@ class BooksApp extends Component {
 
   render() {
 
-    const { books, searchResults } = this.state
+    const { books } = this.state
 
     return (
 
