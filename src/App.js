@@ -68,6 +68,7 @@ class BooksApp extends Component {
               onUpdateShelf={(book, shelf) => {
                 this.updateBook(book, shelf);
               }}
+              booksOnShelf={books}
             />
           )}
         />

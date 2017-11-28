@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { _ } from "underscore"
+import { _ } from "underscore";
 import * as BooksAPI from "./BooksAPI";
 import Book from "./Book";
 
 class SearchBooks extends Component {
   static propTypes = {
-    onUpdateShelf: PropTypes.func.isRequired
+    onUpdateShelf: PropTypes.func.isRequired,
+    booksOnShelf: PropTypes.array.isRequired
   };
 
   state = {
@@ -21,14 +22,35 @@ class SearchBooks extends Component {
     }
   };
 
-  updateQuery = (query) => {
+  updateQuery = query => {
     this.setState({ query });
 
     if (query) {
-      _.debounce(BooksAPI.search(query.trim()).then(searchResults => {
-        this.setState({ searchResults });
-      }), 750);
+      _.debounce(
+        BooksAPI.search(query.trim()).then(searchResults => {
+          this.updateBooks(searchResults);
+        }),
+        750
+      );
     }
+  };
+
+  updateBooks = books => {
+    const verifiedBooks = books.map(book => {
+      this.props.booksOnShelf.forEach(bookOnShelf => {
+        // check weather book is already on shelf
+        if (book.id === bookOnShelf.id) {
+          // if yes get the shelf data from BooksOnShelf
+          book.shelf = bookOnShelf.shelf;
+        }
+      });
+
+      return book;
+    });
+
+    this.setState({
+      searchResults: verifiedBooks
+    });
   };
 
   render() {
@@ -54,7 +76,7 @@ class SearchBooks extends Component {
               type="text"
               placeholder="Search by title or author"
               value={query}
-              onChange={(e) => this.updateQuery(e.target.value)}
+              onChange={e => this.updateQuery(e.target.value)}
             />
           </div>
         </div>
