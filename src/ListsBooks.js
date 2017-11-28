@@ -9,8 +9,16 @@ class BookShelf extends Component {
     onUpdateShelf: PropTypes.func.isRequired
   };
 
-  state = {
-    shelves: [
+  handleUpdate = (book, shelf) => {
+    if (this.props.onUpdateShelf) {
+      this.props.onUpdateShelf(book, shelf);
+    }
+  };
+
+  render() {
+    const { books } = this.props;
+
+    const shelves = [
       {
         value: "currentlyReading",
         title: "Currently Reading"
@@ -23,18 +31,7 @@ class BookShelf extends Component {
         value: "read",
         title: "Read"
       }
-    ]
-  };
-
-  handleUpdate = (book, shelf) => {
-    if (this.props.onUpdateShelf) {
-      this.props.onUpdateShelf(book, shelf);
-    }
-  };
-
-  render() {
-    const { books } = this.props;
-    const { shelves } = this.state;
+    ];
 
     return (
       <div className="list-books">
