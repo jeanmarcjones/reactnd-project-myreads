@@ -52,10 +52,10 @@ class Book extends Component {
         <div className="book-title">{bookInfo.title}</div>
 
         <div className="book-authors">
-          {bookInfo.authors.map(
+          {bookInfo.authors && (bookInfo.authors.map(
             (author, index) =>
               `${author}${bookInfo.authors[index + 1] ? ", " : ""}`
-          )}
+          ))}
         </div>
       </div>
     );
