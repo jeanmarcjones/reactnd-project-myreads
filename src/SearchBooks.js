@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { _ } from "underscore"
 import * as BooksAPI from "./BooksAPI";
 import Book from "./Book";
 
@@ -20,13 +21,13 @@ class SearchBooks extends Component {
     }
   };
 
-  updateQuery = query => {
+  updateQuery = (query) => {
     this.setState({ query });
 
     if (query) {
-      BooksAPI.search(query.trim()).then(searchResults => {
+      _.debounce(BooksAPI.search(query.trim()).then(searchResults => {
         this.setState({ searchResults });
-      });
+      }), 750);
     }
   };
 
@@ -53,7 +54,7 @@ class SearchBooks extends Component {
               type="text"
               placeholder="Search by title or author"
               value={query}
-              onChange={e => this.updateQuery(e.target.value)}
+              onChange={(e) => this.updateQuery(e.target.value)}
             />
           </div>
         </div>
