@@ -22,18 +22,15 @@ class BooksApp extends Component {
   }
 
   updateBook(book, shelf) {
-    BooksAPI.update(book, shelf);
+    BooksAPI.update(book, shelf)
+      .then(() => {
+        book.shelf = shelf
 
-    this.setState({
-      books: this.state.books.map(b => {
-        if (b.id === book.id) {
-          b.shelf = shelf;
-        }
-
-        return b;
+        this.setState((state) => ({
+          books: state.books.filter((b) => b.id !== book.id).concat([book])
+        }))
       })
-    });
-  }
+  };
 
   searchBooks(query) {
     BooksAPI.search(query).then(searchResults => {
