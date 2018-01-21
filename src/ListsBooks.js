@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import Header from "./Header"
 import Shelf from "./Shelf";
 
 class BookShelf extends Component {
@@ -35,9 +36,7 @@ class BookShelf extends Component {
 
     return (
       <div className="list-books">
-        <div className="list-books-title">
-          <h1>MyReads</h1>
-        </div>
+        <Header/>
 
         <div className="list-books-content">
           {shelves.map(shelf => (
