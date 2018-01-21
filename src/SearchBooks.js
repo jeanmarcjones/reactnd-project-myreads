@@ -87,15 +87,15 @@ class SearchBooks extends Component {
           </div>
         </div>
         <div className="search-books-results">
-          {searchResults.length > 0 && (
-            <ol className="books-grid">
+          {searchResults.length > 0
+            ? (<ol className="books-grid">
               {searchResults.map(book => (
                 <li key={book.id}>
                   <Book bookInfo={book} onUpdateShelf={this.handleUpdate} />
                 </li>
               ))}
-            </ol>
-          )}
+            </ol>)
+          : <p>No books found please try again.</p>}
         </div>
       </div>
     );
