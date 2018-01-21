@@ -25,13 +25,19 @@ class SearchBooks extends Component {
   updateQuery = query => {
     this.setState({ query });
 
-    if (query) {
+    if (query.length > 0) {
       _.debounce(
-        BooksAPI.search(query.trim()).then(searchResults => {
-          this.updateBooks(searchResults);
-        }),
-        750
-      );
+        BooksAPI.search(query.trim())
+          .then(searchResults => {
+            this.updateBooks(searchResults);
+          })
+          .catch(() => {
+            // Hides previous search results
+            this.setState({ searchResults: [] })
+          }), 750);
+    } else {
+      // Clears results if search terms deleted
+      this.setState({ searchResults: [] })
     }
   };
 
