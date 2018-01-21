@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import SearchBooks from "./SearchBooks";
 import ListsBooks from "./ListsBooks";
+import NoMatch from "./NoMatch";
 import * as BooksAPI from "./BooksAPI";
 import "./App.css";
 
@@ -45,33 +46,35 @@ class BooksApp extends Component {
 
     return (
       <div className="app">
-        <Route
-          exact
-          path="/"
-          render={() => (
-            <ListsBooks
-              books={books}
-              onUpdateShelf={(book, shelf) => {
-                this.updateBook(book, shelf);
-              }}
-              onSearch={query => {
-                this.searchBooks(query);
-              }}
-            />
-          )}
-        />
-
-        <Route
-          path="/search"
-          render={() => (
-            <SearchBooks
-              onUpdateShelf={(book, shelf) => {
-                this.updateBook(book, shelf);
-              }}
-              booksOnShelf={books}
-            />
-          )}
-        />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <ListsBooks
+                books={books}
+                onUpdateShelf={(book, shelf) => {
+                  this.updateBook(book, shelf);
+                }}
+                onSearch={query => {
+                  this.searchBooks(query);
+                }}
+              />
+            )}
+          />
+          <Route
+            path="/search"
+            render={() => (
+              <SearchBooks
+                onUpdateShelf={(book, shelf) => {
+                  this.updateBook(book, shelf);
+                }}
+                booksOnShelf={books}
+              />
+            )}
+          />
+          <Route component={NoMatch}/>
+        </Switch>
       </div>
     );
   }
