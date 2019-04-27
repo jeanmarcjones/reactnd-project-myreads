@@ -1,19 +1,31 @@
 # MyReads Project
 
-My project submission for Udacity's React Fundamentals course. It allows you to search for books and add them to three different shelves Currently Reading, Want To Read and Read.
+My project submission for Udacity's React Fundamentals course. It allows you to search for books and add them to three 
+different shelves Currently Reading, Want To Read and Read.
 
-I was provided with a template containing the CSS and HTML markup for the project, I was tasked with writing the react code to complete the project. Here are the initial files I was provided [`MyReads Project Starter`](https://github.com/udacity/reactnd-project-myreads-starter). 
+I was provided with a template containing the CSS and HTML markup for the project, I was tasked with writing the react 
+code to complete the project. The initial project files are 
+[here](https://github.com/udacity/reactnd-project-myreads-starter). 
 
-## TL;DR
+## Getting started
 
 To view the project you must:
 
-* install all project dependencies with `npm install`
-* start the development server with `npm start`
+* install all project dependencies with `yarn install`
+* start the development server with `yarn start`
 
-## Backend Server
+You may use `npm` instead of `yarn` to install dependencies and start the development server.
 
-To simplify your development process, we've provided a backend server for you to develop against. The provided file [`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
+## Important
+
+The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can 
+be found in [`SEARCH_TERMS.md`](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the 
+backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
+
+## Back-end Server
+
+To simplify your development process, we've provided a backend server for you to develop against. The provided file 
+[`BooksAPI.js`](src/BooksAPI.js) contains the methods you will need to perform necessary operations on the backend:
 
 * [`getAll`](#getall)
 * [`update`](#update)
@@ -51,17 +63,16 @@ search(query, maxResults)
 ```
 
 * query: `<String>`
-* maxResults: `<Integer>` Due to the nature of the backend server, search results are capped at 20, even if this is set higher.
+* maxResults: `<Integer>` Due to the nature of the backend server, search results are capped at 20, even if this is set 
+higher.
 * Returns a Promise which resolves to a JSON object containing a collection of book objects.
-* These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have the correct state while on the search page.
-
-## Important
-The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend, so don't be surprised if your searches for Basket Weaving or Bubble Wrap don't come back with any results.
-
-## Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). You can find more information on how to perform common tasks [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
+* These books do not know which shelf they are on. They are raw results only. You'll need to make sure that books have 
+the correct state while on the search page.
 
 ## Contributing
 
-This repository is Jean-Marc Jones personal project. Therefore, pull requests will not be accepted.
+This repository is a personal project. Therefore, pull requests will not be accepted.
+
+## Licence
+
+This project is licensed under the Unlicense license.
